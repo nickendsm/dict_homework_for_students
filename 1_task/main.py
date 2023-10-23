@@ -44,6 +44,20 @@ def get_parsed_employees_info() -> list[dict[str, int | str]]:
     """Функция парсит данные, полученные из внешнего API и приводит их к стандартизированному виду."""
     employees_info = get_employees_info()
     parsed_employees_info = []
+    int_keys = ["id", "age"]
+    decimal_keys = ["salary"]
+    str_keys = ["name", "last_name", "position"]
+    for employee in employees_info:
+        employee_info = {}
+        info = employee.split(' ')
+        for key in int_keys:
+            employee_info[key] = int(info[info.index(key)+1])
 
-    # Ваш код ниже
+        for key in decimal_keys:
+            employee_info[key] = Decimal(info[info.index(key)+1])
+
+        for key in str_keys:
+            employee_info[key] = info[info.index(key)+1]
+
+        parsed_employees_info.append(employee_info)
     return parsed_employees_info

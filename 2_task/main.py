@@ -9,13 +9,10 @@
 - регистр игнорируется
 - слова короче 3-х символов игнорируются.
 
-
-Советы:
-1) почитать про регулярные выражения в питоне, для визуального представления можно пользоваться сайтом https://regex101.com/
-2) вспомнить про sorted, почитать про lambda функции и сортировку с их помощью
-
-для тестирования запустить pytest 2_task/test.py
+Для тестирования запустить pytest 2_task/test.py
 """
+from collections import Counter
+import re
 
 
 def top_10_most_common_words(text: str) -> dict[str, int]:
@@ -27,5 +24,6 @@ def top_10_most_common_words(text: str) -> dict[str, int]:
     Returns:
         словарь типа {слово: количество вхождений}
     """
-    most_common = {}
+    correct_word = sorted(re.findall(r'\b\w{3,}\b', text.lower()))
+    most_common = dict(Counter(correct_word).most_common(10))
     return most_common
